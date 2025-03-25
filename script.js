@@ -87,8 +87,7 @@ class HashMap {
     for (let bucket of this.hashMap) {
       if (bucket == undefined) {
         continue;
-      } 
-      else if (bucket.length > 1) {
+      } else if (bucket.length > 1) {
         let head = bucket[0];
         if (bucket[0].key === key) {
           bucket.shift();
@@ -102,34 +101,51 @@ class HashMap {
           }
           head = head.nextNode;
         }
-      }
-      else if (bucket[0].key === key) {
+      } else if (bucket[0].key === key) {
         this.hashMap[this.hashMap.indexOf(bucket)] = undefined;
         return true;
-      } 
+      }
     }
 
     return false;
   }
+
+  length() {
+    let count = 0;
+
+    for (const bucket of this.hashMap) {
+      if (bucket == undefined) {
+        continue;
+      } else if (bucket.length > 1) {
+        let head = bucket[0];
+        while (head != null) {
+          count++;
+          head = head.nextNode;
+        }
+      } else if (bucket.length === 1) {
+        count++;
+      }
+    }
+
+    return count;
+  }
 }
 
-// const hashMap = new HashMap();
+const hashMap = new HashMap();
 
-// hashMap.set("apple", "red");
-// hashMap.set("banana", "yellow");
-// hashMap.set("carrot", "orange");
-// hashMap.set("dog", "brown");
-// hashMap.set("elephant", "gray");
-// hashMap.set("frog", "green");
-// hashMap.set("grape", "purple");
-// hashMap.set("hat", "black");
-// hashMap.set("ice cream", "white");
-// hashMap.set("jacket", "blue");
-// hashMap.set("kite", "pink");
-// hashMap.set("lion", "golden");
-
-// console.log(hashMap.hashMap);
-// console.log(hashMap.remove("hat"));
-// console.log(hashMap.hashMap);
+hashMap.set("apple", "red");
+hashMap.set("banana", "yellow");
+hashMap.set("carrot", "orange");
+hashMap.set("dog", "brown");
+hashMap.set("elephant", "gray");
+hashMap.set("frog", "green");
+hashMap.set("grape", "purple");
+hashMap.set("hat", "black");
+hashMap.set("ice cream", "white");
+hashMap.set("jacket", "blue");
+hashMap.set("kite", "pink");
+hashMap.set("lion", "golden");
+hashMap.set('moon', 'silver')
 
 
+console.log(hashMap.length())
