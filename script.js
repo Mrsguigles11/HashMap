@@ -80,21 +80,56 @@ class HashMap {
 
     return false;
   }
+
+  remove(key) {
+    key = this.hash(key);
+
+    for (let bucket of this.hashMap) {
+      if (bucket == undefined) {
+        continue;
+      } 
+      else if (bucket.length > 1) {
+        let head = bucket[0];
+        if (bucket[0].key === key) {
+          bucket.shift();
+          return true;
+        }
+        while (head.nextNode != null) {
+          if (head.nextNode.key === key) {
+            head.nextNode = head.nextNode.nextNode;
+            bucket.splice(bucket.indexOf(head.nextNode), 1);
+            return true;
+          }
+          head = head.nextNode;
+        }
+      }
+      else if (bucket[0].key === key) {
+        this.hashMap[this.hashMap.indexOf(bucket)] = undefined;
+        return true;
+      } 
+    }
+
+    return false;
+  }
 }
 
-const hashMap = new HashMap();
+// const hashMap = new HashMap();
 
-hashMap.set("apple", "red");
-hashMap.set("banana", "yellow");
-hashMap.set("carrot", "orange");
-hashMap.set("dog", "brown");
-hashMap.set("elephant", "gray");
-hashMap.set("frog", "green");
-hashMap.set("grape", "purple");
-hashMap.set("hat", "black");
-hashMap.set("ice cream", "white");
-hashMap.set("jacket", "blue");
-hashMap.set("kite", "pink");
-hashMap.set("lion", "golden");
+// hashMap.set("apple", "red");
+// hashMap.set("banana", "yellow");
+// hashMap.set("carrot", "orange");
+// hashMap.set("dog", "brown");
+// hashMap.set("elephant", "gray");
+// hashMap.set("frog", "green");
+// hashMap.set("grape", "purple");
+// hashMap.set("hat", "black");
+// hashMap.set("ice cream", "white");
+// hashMap.set("jacket", "blue");
+// hashMap.set("kite", "pink");
+// hashMap.set("lion", "golden");
 
-console.log(hashMap.has("apple"));
+// console.log(hashMap.hashMap);
+// console.log(hashMap.remove("hat"));
+// console.log(hashMap.hashMap);
+
+
