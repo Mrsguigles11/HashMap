@@ -14,7 +14,7 @@ class HashMap {
   }
 
   set(key, value) {
-    if (this.hashMap.length >= this.loadFactor) {
+    if (this.hashMap.length > this.loadFactor) {
       this.capacity = this.capacity * 2;
     }
 
@@ -58,21 +58,43 @@ class HashMap {
 
     return null;
   }
+
+  has(key) {
+    key = this.hash(key);
+
+    for (const bucket of this.hashMap) {
+      if (bucket == undefined) {
+        continue;
+      } else if (bucket.length > 1) {
+        let head = bucket[0];
+        while (head != null) {
+          if (head.key === key) {
+            return true;
+          }
+          head = head.nextNode;
+        }
+      } else if (bucket[0].key === key) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 }
 
-// const hashMap = new HashMap();
+const hashMap = new HashMap();
 
-// hashMap.set("apple", "red");
-// hashMap.set("banana", "yellow");
-// hashMap.set("carrot", "orange");
-// hashMap.set("dog", "brown");
-// hashMap.set("elephant", "gray");
-// hashMap.set("frog", "green");
-// hashMap.set("grape", "purple");
-// hashMap.set("hat", "black");
-// hashMap.set("ice cream", "white");
-// hashMap.set("jacket", "blue");
-// hashMap.set("kite", "pink");
-// hashMap.set("lion", "golden");
+hashMap.set("apple", "red");
+hashMap.set("banana", "yellow");
+hashMap.set("carrot", "orange");
+hashMap.set("dog", "brown");
+hashMap.set("elephant", "gray");
+hashMap.set("frog", "green");
+hashMap.set("grape", "purple");
+hashMap.set("hat", "black");
+hashMap.set("ice cream", "white");
+hashMap.set("jacket", "blue");
+hashMap.set("kite", "pink");
+hashMap.set("lion", "golden");
 
-// console.log(hashMap.get("apple"));
+console.log(hashMap.has("apple"));
