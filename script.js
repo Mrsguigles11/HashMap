@@ -10,7 +10,6 @@ class HashMap {
     for (let i = 0; i < key.length; i++) {
       hashCode = primeNumber * hashCode + key.charCodeAt(i);
     }
-    hashCode = hashCode % this.capacity;
     return hashCode;
   }
 
@@ -21,19 +20,19 @@ class HashMap {
     }
 
     const hashCode = this.hash(key);
+    const bucket = hashCode % this.capacity;
+    const keyValuepair = {key: hashCode, value: value};
 
-    for (let bucket of this.hashMap) {
-      if (bucket[0] === hashCode) {
-        bucket[1] = value;
-        // console.log(this.hashMap);
-        return
-      }
+    if (this.hashMap.length === 0 || this.hashMap[hashCode % this.capacity] == undefined) {
+      this.hashMap[bucket] = [keyValuepair];
+      return
     }
-
-    const array = [hashCode, value];
-    this.hashMap.splice(hashCode, 1, array);
-
-    // console.log(this.hashMap)
+    else if (this.hashMap[bucket] != 0) {
+      keyValuepair.nextNode = null;
+      this.hashMap[bucket][this.hashMap[bucket].length - 1].nextNode = keyValuepair;
+      this.hashMap[bucket].push(keyValuepair);
+      return
+    }
   }
 }
 
@@ -52,4 +51,5 @@ hashMap.set('jacket', 'blue')
 hashMap.set('kite', 'pink')
 hashMap.set('lion', 'golden')
 
-console.log(hashMap.hashMap)
+console.log(hashMap.hashMap);
+
