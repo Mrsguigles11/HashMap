@@ -16,9 +16,17 @@ class HashMap {
   set(key, value) {
     if (this.length() >= this.loadFactor) {
       this.capacity = this.capacity * 2;
+      const entries = this.entries();
+      this.clear();
+      for (let i = 0; i < entries.length; i++) {
+        this.set(entries[i][0], entries[i][1]);
+      }
     }
 
-    const hashCode = this.hash(key);
+    let hashCode = key; 
+    if (typeof(key) === "string") {
+      hashCode = this.hash(key);
+    }
     const bucket = hashCode % this.capacity;
     const keyValuepair = { key: hashCode, value: value };
 
@@ -211,18 +219,19 @@ class HashMap {
 
 const hashMap = new HashMap();
 
-hashMap.set("apple", "red");
-hashMap.set("banana", "yellow");
-hashMap.set("carrot", "orange");
-hashMap.set("dog", "brown");
-hashMap.set("elephant", "gray");
-hashMap.set("frog", "green");
-hashMap.set("grape", "purple");
-hashMap.set("hat", "black");
-hashMap.set("ice cream", "white");
-hashMap.set("jacket", "blue");
-hashMap.set("kite", "pink");
-hashMap.set("hat", "cream");
+hashMap.set('apple', 'red')
+hashMap.set('banana', 'yellow')
+hashMap.set('carrot', 'orange')
+hashMap.set('dog', 'brown')
+hashMap.set('elephant', 'gray')
+hashMap.set('frog', 'green')
+hashMap.set('grape', 'purple')
+hashMap.set('hat', 'black')
+hashMap.set('ice cream', 'white')
+hashMap.set('jacket', 'blue')
+hashMap.set('kite', 'pink')
+hashMap.set('lion', 'golden')
+
 
 
 console.log(hashMap.hashMap);
