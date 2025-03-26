@@ -29,6 +29,12 @@ class HashMap {
       this.hashMap[bucket] = [keyValuepair];
       return;
     } else if (this.hashMap[bucket] != 0) {
+      for (let obj of this.hashMap[bucket]) {
+        if (obj.key === hashCode) {
+          obj.value = value;
+          return
+        }
+      }
       keyValuepair.nextNode = null;
       this.hashMap[bucket][this.hashMap[bucket].length - 1].nextNode =
         keyValuepair;
@@ -216,8 +222,7 @@ hashMap.set("hat", "black");
 hashMap.set("ice cream", "white");
 hashMap.set("jacket", "blue");
 hashMap.set("kite", "pink");
-hashMap.set("lion", "golden");
-hashMap.set("moon", "silver");
+hashMap.set("hat", "cream");
 
 
-console.log(hashMap.capacity);
+console.log(hashMap.hashMap);
