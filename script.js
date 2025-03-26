@@ -23,8 +23,8 @@ class HashMap {
       }
     }
 
-    let hashCode = key; 
-    if (typeof(key) === "string") {
+    let hashCode = key;
+    if (typeof key === "string") {
       hashCode = this.hash(key);
     }
     const bucket = hashCode % this.capacity;
@@ -32,15 +32,15 @@ class HashMap {
 
     if (
       this.hashMap.length === 0 ||
-      this.hashMap[hashCode % this.capacity] == undefined
+      this.hashMap[bucket] == undefined
     ) {
       this.hashMap[bucket] = [keyValuepair];
       return;
-    } else if (this.hashMap[bucket] != 0) {
+    } else if (this.hashMap[bucket].length != 0) {
       for (let obj of this.hashMap[bucket]) {
         if (obj.key === hashCode) {
           obj.value = value;
-          return
+          return;
         }
       }
       keyValuepair.nextNode = null;
@@ -199,17 +199,17 @@ class HashMap {
       } else if (bucket.length > 1) {
         let head = bucket[0];
         while (head != null) {
-          let entry = []
+          let entry = [];
           entry.push(head.key);
           entry.push(head.value);
           entries.push(entry);
           head = head.nextNode;
         }
       } else if (bucket.length === 1) {
-        let entry = []
-          entry.push(bucket[0].key);
-          entry.push(bucket[0].value);
-          entries.push(entry);
+        let entry = [];
+        entry.push(bucket[0].key);
+        entry.push(bucket[0].value);
+        entries.push(entry);
       }
     }
 
@@ -217,4 +217,19 @@ class HashMap {
   }
 }
 
+const hashMap = new HashMap();
 
+hashMap.set('apple', 'red')
+hashMap.set('banana', 'yellow')
+hashMap.set('carrot', 'orange')
+hashMap.set('dog', 'brown')
+hashMap.set('elephant', 'gray')
+hashMap.set('frog', 'green')
+hashMap.set('grape', 'purple')
+hashMap.set('hat', 'black')
+hashMap.set('ice cream', 'white')
+hashMap.set('jacket', 'blue')
+hashMap.set('kite', 'pink')
+hashMap.set('lion', 'golden')
+
+console.log(hashMap.hashMap)
