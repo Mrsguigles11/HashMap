@@ -129,6 +129,13 @@ class HashMap {
 
     return count;
   }
+
+  clear() {
+
+    for (let i = 0; i < this.capacity; i++) {
+      this.hashMap[i] = undefined;
+    }
+  }
 }
 
 const hashMap = new HashMap();
@@ -147,5 +154,5 @@ hashMap.set("kite", "pink");
 hashMap.set("lion", "golden");
 hashMap.set('moon', 'silver')
 
-
-console.log(hashMap.length())
+hashMap.clear();
+console.log(hashMap.hashMap)
