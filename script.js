@@ -1,6 +1,6 @@
 class HashMap {
   capacity = 16;
-  loadFactor = this.capacity / 0.75;
+  loadFactor = this.capacity * 0.75;
   hashMap = [];
 
   hash(key) {
@@ -14,7 +14,7 @@ class HashMap {
   }
 
   set(key, value) {
-    if (this.hashMap.length > this.loadFactor) {
+    if (this.length() >= this.loadFactor) {
       this.capacity = this.capacity * 2;
     }
 
@@ -219,4 +219,5 @@ hashMap.set("kite", "pink");
 hashMap.set("lion", "golden");
 hashMap.set("moon", "silver");
 
-console.log(hashMap.entries());
+
+console.log(hashMap.capacity);
