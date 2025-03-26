@@ -155,6 +155,26 @@ class HashMap {
 
     return keys;
   }
+
+  values() {
+    let values = [];
+
+    for (const bucket of this.hashMap) {
+      if (bucket == undefined) {
+        continue;
+      } else if (bucket.length > 1) {
+        let head = bucket[0];
+        while (head != null) {
+          values.push(head.value);
+          head = head.nextNode;
+        }
+      } else if (bucket.length === 1) {
+        values.push(bucket[0].value);
+      }
+    }
+
+    return values;
+  }
 }
 
 const hashMap = new HashMap();
@@ -173,4 +193,4 @@ hashMap.set("kite", "pink");
 hashMap.set("lion", "golden");
 hashMap.set("moon", "silver");
 
-console.log(hashMap.keys());
+console.log(hashMap.values());
