@@ -175,6 +175,32 @@ class HashMap {
 
     return values;
   }
+
+  entries() {
+    let entries = [];
+
+    for (const bucket of this.hashMap) {
+      if (bucket == undefined) {
+        continue;
+      } else if (bucket.length > 1) {
+        let head = bucket[0];
+        while (head != null) {
+          let entry = []
+          entry.push(head.key);
+          entry.push(head.value);
+          entries.push(entry);
+          head = head.nextNode;
+        }
+      } else if (bucket.length === 1) {
+        let entry = []
+          entry.push(bucket[0].key);
+          entry.push(bucket[0].value);
+          entries.push(entry);
+      }
+    }
+
+    return entries;
+  }
 }
 
 const hashMap = new HashMap();
@@ -193,4 +219,4 @@ hashMap.set("kite", "pink");
 hashMap.set("lion", "golden");
 hashMap.set("moon", "silver");
 
-console.log(hashMap.values());
+console.log(hashMap.entries());
