@@ -131,10 +131,29 @@ class HashMap {
   }
 
   clear() {
-
     for (let i = 0; i < this.capacity; i++) {
       this.hashMap[i] = undefined;
     }
+  }
+
+  keys() {
+    let keys = [];
+
+    for (const bucket of this.hashMap) {
+      if (bucket == undefined) {
+        continue;
+      } else if (bucket.length > 1) {
+        let head = bucket[0];
+        while (head != null) {
+          keys.push(head.key);
+          head = head.nextNode;
+        }
+      } else if (bucket.length === 1) {
+        keys.push(bucket[0].key);
+      }
+    }
+
+    return keys;
   }
 }
 
@@ -152,7 +171,6 @@ hashMap.set("ice cream", "white");
 hashMap.set("jacket", "blue");
 hashMap.set("kite", "pink");
 hashMap.set("lion", "golden");
-hashMap.set('moon', 'silver')
+hashMap.set("moon", "silver");
 
-hashMap.clear();
-console.log(hashMap.hashMap)
+console.log(hashMap.keys());
